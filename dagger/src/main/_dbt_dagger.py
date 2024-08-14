@@ -3,13 +3,13 @@ from dagger import dag, function, object_type
 import os
 
 @object_type
-class Midas:
+class dbt:
     @function
     def container(self) -> dagger.Container:
         """Set up container"""
         return (
             dag.container().from_(
-                "asia-southeast2-docker.pkg.dev/cf-data-engineering/dataplatform/testing-dbt-teddy:latest"
+                "testing-dbt-teddy:latest"
             )
         )
     
