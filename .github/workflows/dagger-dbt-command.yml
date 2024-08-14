@@ -2,21 +2,10 @@ name: dbt-full--refresh
 on:
   workflow_dispatch:
     inputs:
-      model_name:
-        description: "Model name that you want to full-refresh"
+      name:
+        description: "Name"
         required: true
         default: ""
-      
-      is_full_refresh:
-        description: "Whether to perform a full refresh"
-        required: true
-        type: boolean
-        default: true
-      
-      profile:
-        description: "Profile to use for dbt"
-        required: true
-        default: "production"
 
 jobs:
   dbt-full-refresh:
@@ -41,8 +30,4 @@ jobs:
       - name: dbt full refresh
         working-directory: ./dagger/src/main
         run: |
-          python _dbt_dagger.py
-        env:
-          MODEL_NAME: ${{ inputs.model_name }}
-          IS_FULL_REFRESH: ${{ inputs.is_full_refresh }}
-          PROFILE: ${{ inputs.profile }}
+          dagger call hello --name= ${{ inputs.name }}
