@@ -28,4 +28,4 @@ jobs:
 
       - name: run example
         run: |
-          dagger call hello --name= ${{ inputs.name }}
+          dagger call hello --name=${{ inputs.name }}
