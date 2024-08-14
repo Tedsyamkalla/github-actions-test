@@ -16,10 +16,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: setup-python-3.9
+      - name: setup-python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9.10
+          python-version: 3.11.9
 
       - name: install-requirements
         working-directory: ./dagger
