@@ -24,6 +24,7 @@ jobs:
       - name: install-requirements
         run: |
           curl -L https://dl.dagger.io/dagger/install.sh | DAGGER_VERSION=0.12.4 sh
+          ls
           sudo mv ~/bin/dagger /usr/local/bin/
 
       - name: run example
