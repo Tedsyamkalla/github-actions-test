@@ -22,9 +22,9 @@ jobs:
           python-version: 3.11.9
 
       - name: install-requirements
-        working-directory: ./dagger
         run: |
-          curl -L https://dl.dagger.io/dagger/install.sh | DAGGER_VERSION=0.12.4 sh   
+          curl -L https://dl.dagger.io/dagger/install.sh | DAGGER_VERSION=0.12.4 sh
+          sudo mv ~/bin/dagger /usr/local/bin/
 
       - name: run example
         run: |
