@@ -1,31 +1,51 @@
-name: dagger example
+name: dbt run --full-refresh
 on:
   workflow_dispatch:
     inputs:
-      name:
-        description: "Name"
+      model_name:
+        description: "Model Name"
         required: true
         default: ""
+      
+      is_full_refresh:
+        description: "Is full refresh"
+        required: true
+        type: boolean
+        default: true
+      
+      profile:
+        description: "Profile"
+        required: true
+        default: "production"
+      
+      target:
+        description: "Target"
+        required: true
+        default: "production"
+        type: choice
+        options:
+          - production
+          - dev
 
 jobs:
-  dagger_example:
-    runs-on: ubuntu-latest
+  dbt-run:
+    runs-on: development
     steps:
       - name: checkout code
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: setup-python
+      - name: setup-python-3.9
         uses: actions/setup-python@v2
         with:
-          python-version: 3.11.9
+          python-version: 3.9.10
 
       - name: install-requirements
         run: |
           curl -L https://dl.dagger.io/dagger/install.sh | DAGGER_VERSION=0.12.4 sh
-          sudo mv $PWD/bin/dagger /usr/local/bin/
+          sudo mv $PWD/bin/dagger /usr/local/bin/ 
 
-      - name: run example
+      - name: dbt full refresh
         run: |
-          dagger call hello --name=${{ inputs.name }}
+          dagger call dbt_run --model_name=${{ inputs.model_name }} --is_full_refresh=${{ inputs.is_full_refresh }} --profile=${{ inputs.profile }} --target=${{ inputs.target }}
